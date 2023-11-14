@@ -1,0 +1,3 @@
+_api_url=https://api.ocp4.example.com:6443
+_kube_pass=WdBz8-mLKk9-yVN75-UhaiU
+

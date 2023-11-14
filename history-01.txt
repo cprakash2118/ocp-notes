@@ -1,0 +1,1745 @@
+[student@workstation ~]$ ssh root@utility 
+Warning: Permanently added 'utility,172.25.250.253' (ECDSA) to the list of known hosts.
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Wed Nov  8 07:02:36 2023
+[root@utility ~]# 
+[root@utility ~]# 
+[root@utility ~]# cd /home/lab/ocp4/auth/
+[root@utility auth]# pwd
+/home/lab/ocp4/auth
+[root@utility auth]# ll
+total 28
+-rw-r-----. 1 lab lab    23 Jul 28  2022 kubeadmin-password
+-rw-r-----. 1 lab lab  8474 Jul 28  2022 kubeconfig
+-rw-rw-r--. 1 lab lab 12114 Jul 28  2022 kubeconfig-orig
+[root@utility auth]# scp -r kube* student@workstation:~/
+The authenticity of host 'workstation (172.25.250.9)' can't be established.
+ECDSA key fingerprint is SHA256:AQhX9q+SgGRLr60BhFdQUIa0HHd7xhDdm6PS6zMrSEw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'workstation,172.25.250.9' (ECDSA) to the list of known hosts.
+student@workstation's password: 
+kubeadmin-password                                                     100%   23     6.9KB/s   00:00    
+kubeconfig                                                             100% 8474     4.2MB/s   00:00    
+kubeconfig-orig                                                        100%   12KB   3.8MB/s   00:00    
+[root@utility auth]# exit
+logout
+Connection to utility closed.
+[student@workstation ~]$ ll
+total 28
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Desktop
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Documents
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Downloads
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Music
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Pictures
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Public
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Templates
+drwxr-xr-x. 2 student student     6 Nov 13 22:59 Videos
+[student@workstation ~]$ mkdir work 
+[student@workstation ~]$ mv kube* work/
+[student@workstation ~]$ pwd
+/home/student
+[student@workstation ~]$ ll
+total 0
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Desktop
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Documents
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Downloads
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Music
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Pictures
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Public
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Templates
+drwxr-xr-x. 2 student student  6 Nov 13 22:59 Videos
+drwxrwxr-x. 2 student student 73 Nov 13 23:01 work
+[student@workstation ~]$ cd work/
+[student@workstation work]$ pwd
+/home/student/work
+[student@workstation work]$ ll
+total 28
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+[student@workstation work]$ pwd
+/home/student/work
+[student@workstation work]$ ll
+total 28
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+[student@workstation work]$ cat kubeconfig | grep server
+    server: https://api.ocp4.example.com:6443
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ #https://api.ocp4.example.com:6443
+[student@workstation work]$ cat kubeadmin-password 
+WdBz8-mLKk9-yVN75-UhaiU[student@workstation work]$ ll
+total 28
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+[student@workstation work]$ vim mypass.txt
+[student@workstation work]$ source mypass.txt 
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ uptime 
+ 23:03:43 up 7 min,  1 user,  load average: 0.22, 0.25, 0.11
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc get nodes --kubeconfig kubeconfig
+NAME       STATUS   ROLES           AGE    VERSION
+master01   Ready    master,worker   473d   v1.23.3+e419edf
+master02   Ready    master,worker   473d   v1.23.3+e419edf
+master03   Ready    master,worker   473d   v1.23.3+e419edf
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ oc get nodes --kubeconfig kubeconfig
+NAME       STATUS   ROLES           AGE    VERSION
+master01   Ready    master,worker   473d   v1.23.3+e419edf
+master02   Ready    master,worker   473d   v1.23.3+e419edf
+master03   Ready    master,worker   473d   v1.23.3+e419edf
+[student@workstation work]$ 
+[student@workstation work]$ oc whoami 
+error: Missing or incomplete configuration info.  Please point to an existing, complete config file:
+
+
+  1. Via the command-line flag --kubeconfig
+  2. Via the KUBECONFIG environment variable
+  3. In your home directory as ~/.kube/config
+
+To view or setup config directly use the 'config' command.
+[student@workstation work]$ oc whoami -t 
+error: Missing or incomplete configuration info.  Please point to an existing, complete config file:
+
+
+  1. Via the command-line flag --kubeconfig
+  2. Via the KUBECONFIG environment variable
+  3. In your home directory as ~/.kube/config
+
+To view or setup config directly use the 'config' command.
+[student@workstation work]$ oc whoami -t --kubeconfig kubeconfig
+error: no token is currently in use for this session
+[student@workstation work]$ oc whoami --kubeconfig kubeconfig
+Error from server (ServiceUnavailable): the server is currently unable to handle the request (get users.user.openshift.io ~)
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Unable to connect to the server: EOF
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig
+NAME                            READY   STATUS      RESTARTS         AGE
+installer-8-master02            0/1     Completed   0                473d
+installer-8-master03            0/1     Completed   0                473d
+installer-9-master02            1/1     Running     0                22s
+kube-apiserver-guard-master01   1/1     Running     1                473d
+kube-apiserver-guard-master02   1/1     Running     1                473d
+kube-apiserver-guard-master03   1/1     Running     1                473d
+kube-apiserver-master01         5/5     Running     15 (6m59s ago)   473d
+kube-apiserver-master02         5/5     Running     11 (6m55s ago)   473d
+kube-apiserver-master03         5/5     Running     10 (6m49s ago)   473d
+revision-pruner-8-master01      0/1     Completed   0                473d
+revision-pruner-8-master02      0/1     Completed   0                473d
+revision-pruner-8-master03      0/1     Completed   0                473d
+revision-pruner-9-master01      0/1     Completed   0                35s
+revision-pruner-9-master02      0/1     Completed   0                38s
+revision-pruner-9-master03      0/1     Completed   0                32s
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-etcd --kubeconfig kubeconfig
+NAME                                 READY   STATUS      RESTARTS   AGE
+etcd-master01                        4/4     Running     8          473d
+etcd-master02                        4/4     Running     8          473d
+etcd-master03                        4/4     Running     8          473d
+etcd-quorum-guard-7d8dc4bd99-2pvv6   1/1     Running     1          473d
+etcd-quorum-guard-7d8dc4bd99-pql5k   1/1     Running     1          473d
+etcd-quorum-guard-7d8dc4bd99-rwx75   1/1     Running     1          473d
+revision-pruner-9-master01           0/1     Completed   0          473d
+revision-pruner-9-master02           0/1     Completed   0          473d
+revision-pruner-9-master03           0/1     Completed   0          473d
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig
+NAME                            READY   STATUS      RESTARTS         AGE
+installer-10-master02           1/1     Running     0                7s
+installer-8-master02            0/1     Completed   0                473d
+installer-8-master03            0/1     Completed   0                473d
+installer-9-master02            0/1     Completed   0                101s
+kube-apiserver-guard-master01   1/1     Running     1                473d
+kube-apiserver-guard-master02   1/1     Running     1                473d
+kube-apiserver-guard-master03   1/1     Running     1                473d
+kube-apiserver-master01         5/5     Running     15 (8m18s ago)   473d
+kube-apiserver-master02         5/5     Running     11 (8m14s ago)   473d
+kube-apiserver-master03         5/5     Running     10 (8m8s ago)    473d
+revision-pruner-10-master01     0/1     Completed   0                18s
+revision-pruner-10-master02     0/1     Completed   0                22s
+revision-pruner-10-master03     0/1     Completed   0                14s
+revision-pruner-8-master01      0/1     Completed   0                473d
+revision-pruner-8-master02      0/1     Completed   0                473d
+revision-pruner-8-master03      0/1     Completed   0                473d
+revision-pruner-9-master01      0/1     Completed   0                114s
+revision-pruner-9-master02      0/1     Completed   0                117s
+revision-pruner-9-master03      0/1     Completed   0                111s
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig | grep kube | grep master
+kube-apiserver-guard-master01   1/1     Running     1                473d
+kube-apiserver-guard-master02   1/1     Running     1                473d
+kube-apiserver-guard-master03   1/1     Running     1                473d
+kube-apiserver-master01         5/5     Running     15 (8m45s ago)   473d
+kube-apiserver-master02         3/5     Running     0                12s
+kube-apiserver-master03         5/5     Running     10 (8m35s ago)   473d
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig | grep kube | grep master
+kube-apiserver-guard-master01   1/1     Running     1                473d
+kube-apiserver-guard-master02   1/1     Running     1                473d
+kube-apiserver-guard-master03   1/1     Running     1                473d
+kube-apiserver-master01         5/5     Running     15 (9m9s ago)    473d
+kube-apiserver-master02         5/5     Running     0                36s
+kube-apiserver-master03         5/5     Running     10 (8m59s ago)   473d
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig | grep kube | grep master
+kube-apiserver-guard-master01   1/1     Running     1                473d
+kube-apiserver-guard-master02   1/1     Running     1                473d
+kube-apiserver-guard-master03   1/1     Running     1                473d
+kube-apiserver-master01         5/5     Running     15 (9m29s ago)   473d
+kube-apiserver-master02         5/5     Running     0                56s
+kube-apiserver-master03         5/5     Running     10 (9m19s ago)   473d
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc get pods -n openshift-kube-apiserver --kubeconfig kubeconfig | grep kube | grep master
+kube-apiserver-guard-master01   1/1     Running     1              473d
+kube-apiserver-guard-master02   1/1     Running     1              473d
+kube-apiserver-guard-master03   1/1     Running     1              473d
+kube-apiserver-master01         5/5     Running     15 (10m ago)   473d
+kube-apiserver-master02         5/5     Running     0              17s
+kube-apiserver-master03         5/5     Running     10 (10m ago)   473d
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+Welcome! See 'oc help' to get started.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ 
+[student@workstation work]$ pwd
+/home/student/work
+[student@workstation work]$ ll
+total 32
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+[student@workstation work]$ htpasswd -c -B -b htpasswd-file-sre-team user1 redhat 
+Adding password for user user1
+[student@workstation work]$ htpasswd  -B -b htpasswd-file-sre-team user2 redhat 
+Adding password for user user2
+[student@workstation work]$ htpasswd  -B -b htpasswd-file-sre-team user3 redhat 
+Adding password for user user3
+[student@workstation work]$ cat htpasswd-file-sre-team 
+user1:$2y$05$srOUJXuyJ9Y3palF1B/sBu4XO7cnF.zgMbAwy5/CuBc0/fsZvtyze
+user2:$2y$05$wAxdkkmOXF.3a6FinVigC.43jUOWbfAM3NYJnhW6nQXnejcWkYy0K
+user3:$2y$05$iwuczpcOIoiKDUPChZU3leK5HhIqmRgZzwrCKTsKQJ8Jhxz.TnMXO
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ htpasswd -c -B -b htpasswd-file-devops-team user4 redhat 
+Adding password for user user4
+[student@workstation work]$ htpasswd   -B -b htpasswd-file-devops-team user5 redhat 
+Adding password for user user5
+[student@workstation work]$ htpasswd   -B -b htpasswd-file-devops-team user6 redhat 
+Adding password for user user6
+[student@workstation work]$ 
+[student@workstation work]$ ll
+total 40
+-rw-rw-r--. 1 student student   201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student   201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+[student@workstation work]$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[student@workstation work]$ ls -lrth 
+total 40K
+-rw-r-----. 1 student student   23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student 8.3K Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student  12K Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student   79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student  201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-rw-r--. 1 student student  201 Nov 13 23:13 htpasswd-file-devops-team
+[student@workstation work]$ cat htpasswd-file-sre-team
+user1:$2y$05$srOUJXuyJ9Y3palF1B/sBu4XO7cnF.zgMbAwy5/CuBc0/fsZvtyze
+user2:$2y$05$wAxdkkmOXF.3a6FinVigC.43jUOWbfAM3NYJnhW6nQXnejcWkYy0K
+user3:$2y$05$iwuczpcOIoiKDUPChZU3leK5HhIqmRgZzwrCKTsKQJ8Jhxz.TnMXO
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ cat htpasswd-file-devops-team
+user4:$2y$05$Qkr0TunyybnOF/0NEtPj5OOZFuFHa/3kjkyKB4iGOVDJRGgkMp2BK
+user5:$2y$05$AUe1/wliAcu4uiQ.lwqGHOK5.6NI1rxOVRkjLpy/qYidlYDR8wdSW
+user6:$2y$05$t7LHKDipM7dkmdXzXhenWuadf1esn9bBbojDvsIFbaY7sVMFjR8rq
+[student@workstation work]$ 
+[student@workstation work]$ oc whoami 
+error: You must be logged in to the server (Unauthorized)
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ uptime 
+ 23:14:20 up 18 min,  1 user,  load average: 0.49, 0.22, 0.12
+[student@workstation work]$ 
+[student@workstation work]$ oc whoami 
+kube:admin
+[student@workstation work]$ oc create secret generic htpasswd-sre-secret --from-file htpasswd=
+htpasswd-file-devops-team  kubeadmin-password         kubeconfig-orig
+htpasswd-file-sre-team     kubeconfig                 mypass.txt
+[student@workstation work]$ oc create secret generic htpasswd-sre-secret --from-file htpasswd=htpasswd-file-sre-team -n openshift-config 
+error: failed to create secret Unauthorized
+[student@workstation work]$ oc create secret generic htpasswd-sre-secret --from-file htpasswd=htpasswd-file-sre-team -n openshift-config 
+error: failed to create secret Unauthorized
+[student@workstation work]$ oc create secret generic htpasswd-sre-secret --from-file htpasswd=htpasswd-file-sre-team -n openshift-config 
+secret/htpasswd-sre-secret created
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc get secret -n openshift-config | grep sre 
+htpasswd-sre-secret                       Opaque                                1      23s
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc create secret generic htpasswd-devops-secret --from-file htpasswd=htpasswd-file-devops-team -n openshift-config 
+secret/htpasswd-devops-secret created
+[student@workstation work]$ oc get secret -n openshift-config | egrep 'sre|devops'
+htpasswd-devops-secret                    Opaque                                1      14s
+htpasswd-sre-secret                       Opaque                                1      2m1s
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc get secret htpasswd-sre-secret -n openshift-config -o yaml 
+apiVersion: v1
+data:
+  htpasswd: dXNlcjE6JDJ5JDA1JHNyT1VKWHV5SjlZM3BhbEYxQi9zQnU0WE83Y25GLnpnTWJBd3k1L0N1QmMwL2ZzWnZ0eXplCnVzZXIyOiQyeSQwNSR3QXhka2ttT1hGLjNhNkZpblZpZ0MuNDNqVU9XYmZBTTNOWUpuaFc2blFYbmVqY1drWXkwSwp1c2VyMzokMnkkMDUkaXd1Y3pwY09Jb2lLRFVQQ2haVTNsZUs1SGhJcW1SZ1p6d3JDS1RzS1FKOEpoeHouVG5NWE8K
+kind: Secret
+metadata:
+  creationTimestamp: "2023-11-14T04:15:36Z"
+  name: htpasswd-sre-secret
+  namespace: openshift-config
+  resourceVersion: "65776"
+  uid: f03bf8dd-ad2c-490a-880b-ee9dc601e15f
+type: Opaque
+[student@workstation work]$ 
+[student@workstation work]$ oc get oauth/cluster -o yaml > oauth.yaml 
+[student@workstation work]$ vim oauth.yaml 
+[student@workstation work]$ vim oauth.yaml 
+[student@workstation work]$ oc replace -f oauth.yaml 
+oauth.config.openshift.io/cluster replaced
+[student@workstation work]$ oc get oauth/cluster -o yaml > /tmp/oauth.yaml 
+[student@workstation work]$ vim /tmp/oauth.yaml 
+[student@workstation work]$ oc login -u ^C
+[student@workstation work]$ vim oauth.yaml 
+[student@workstation work]$ cp -rpv oauth.yaml oauth-bkp.yaml 
+'oauth.yaml' -> 'oauth-bkp.yaml'
+[student@workstation work]$ vim oauth-bkp.yaml 
+[student@workstation work]$ vim oauth-bkp.yaml 
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ vim oauth-bkp.yaml 
+[student@workstation work]$ oc login -u user1 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc whoami 
+user1
+[student@workstation work]$ oc login -u user2 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc login -u user4 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc login -u user5 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc get users
+NAME    UID                                    FULL NAME   IDENTITIES
+admin   835bde25-34d7-47a8-a9d5-0875a846ab23               htpasswd_provider:admin
+user1   f79bd0b5-7682-49d7-87ee-7e9e0049e2df               htpasswd_provider-sre:user1
+user2   81afe822-7573-4975-9ee5-7ea8d9f9abe7               htpasswd_provider-sre:user2
+user4   c805f6e5-8264-42fd-91fc-f4e6bbeae021               htpasswd_provider-devops:user4
+user5   758cfbfe-c553-4e7b-8742-125f906f1d9c               htpasswd_provider-devops:user5
+[student@workstation work]$ oc replace -f oauth-bkp.yaml 
+The OAuth "cluster" is invalid: metadata.ownerReferences.uid: Invalid value: "": uid must not be empty
+[student@workstation work]$ vim oauth-bkp.yaml 
+[student@workstation work]$ ll
+total 48
+-rw-rw-r--. 1 student student   201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student   201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student   950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student  1398 Nov 13 23:26 oauth.yaml
+[student@workstation work]$ vim oauth.yaml 
+[student@workstation work]$ oc get users
+NAME    UID                                    FULL NAME   IDENTITIES
+admin   835bde25-34d7-47a8-a9d5-0875a846ab23               htpasswd_provider:admin
+user1   f79bd0b5-7682-49d7-87ee-7e9e0049e2df               htpasswd_provider-sre:user1
+user2   81afe822-7573-4975-9ee5-7ea8d9f9abe7               htpasswd_provider-sre:user2
+user4   c805f6e5-8264-42fd-91fc-f4e6bbeae021               htpasswd_provider-devops:user4
+user5   758cfbfe-c553-4e7b-8742-125f906f1d9c               htpasswd_provider-devops:user5
+[student@workstation work]$ oc login -u user6 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc login -u user3 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 66 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc get users
+NAME    UID                                    FULL NAME   IDENTITIES
+admin   835bde25-34d7-47a8-a9d5-0875a846ab23               htpasswd_provider:admin
+user1   f79bd0b5-7682-49d7-87ee-7e9e0049e2df               htpasswd_provider-sre:user1
+user2   81afe822-7573-4975-9ee5-7ea8d9f9abe7               htpasswd_provider-sre:user2
+user3   93215b98-e026-4228-a72f-36c6bb1499d7               htpasswd_provider-sre:user3
+user4   c805f6e5-8264-42fd-91fc-f4e6bbeae021               htpasswd_provider-devops:user4
+user5   758cfbfe-c553-4e7b-8742-125f906f1d9c               htpasswd_provider-devops:user5
+user6   beb6e7c8-f793-4161-aa5b-8cc3f46ad75b               htpasswd_provider-devops:user6
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc adm groups 
+add-users     new           prune         remove-users  sync          
+[student@workstation work]$ oc adm groups new sre_grp
+group.user.openshift.io/sre_grp created
+[student@workstation work]$ oc adm groups new devops_grp
+group.user.openshift.io/devops_grp created
+[student@workstation work]$ oc get groups.user.openshift.io 
+NAME         USERS
+devops_grp   
+sre_grp      
+[student@workstation work]$ oc adm groups add-users --help |less
+[student@workstation work]$ #oc adm groups add-users sre_grp user1 
+[student@workstation work]$ oc adm groups add-users --help |less
+[student@workstation work]$ oc adm groups add-users sre_grp user1 user2 user3
+group.user.openshift.io/sre_grp added: ["user1" "user2" "user3"]
+[student@workstation work]$ oc get groups.user.openshift.io 
+NAME         USERS
+devops_grp   
+sre_grp      user1, user2, user3
+[student@workstation work]$ oc adm groups add-users devops_grp user4 user5 user6
+group.user.openshift.io/devops_grp added: ["user4" "user5" "user6"]
+[student@workstation work]$ oc get groups.user.openshift.io 
+NAME         USERS
+devops_grp   user4, user5, user6
+sre_grp      user1, user2, user3
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc adm policy 
+add-cluster-role-to-group       remove-cluster-role-from-group  remove-scc-from-user
+add-cluster-role-to-user        remove-cluster-role-from-user   remove-user
+add-role-to-group               remove-group                    scc-review
+add-role-to-user                remove-role-from-group          scc-subject-review
+add-scc-to-group                remove-role-from-user           who-can
+add-scc-to-user                 remove-scc-from-group           
+[student@workstation work]$ oc adm policy add-cluster-role-to-group cluster-admin sre_grp
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "sre_grp"
+[student@workstation work]$ 
+[student@workstation work]$ oc adm policy add-cluster-role-to-user cluster-admin user4 
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "user4"
+[student@workstation work]$ 
+[student@workstation work]$ 
+[student@workstation work]$ oc describe cluster
+clusterautoscalers.autoscaling.openshift.io     clusterrolebindings.rbac.authorization.k8s.io
+clustercsidrivers.operator.openshift.io         clusterroles.authorization.openshift.io
+clusternetworks.network.openshift.io            clusterroles.rbac.authorization.k8s.io
+clusteroperators.config.openshift.io            clusterserviceversions.operators.coreos.com
+clusterresourcequotas.quota.openshift.io        clusterversions.config.openshift.io
+clusterrolebindings.authorization.openshift.io  
+[student@workstation work]$ oc describe cluster
+clusterautoscalers.autoscaling.openshift.io     clusterrolebindings.rbac.authorization.k8s.io
+clustercsidrivers.operator.openshift.io         clusterroles.authorization.openshift.io
+clusternetworks.network.openshift.io            clusterroles.rbac.authorization.k8s.io
+clusteroperators.config.openshift.io            clusterserviceversions.operators.coreos.com
+clusterresourcequotas.quota.openshift.io        clusterversions.config.openshift.io
+clusterrolebindings.authorization.openshift.io  
+[student@workstation work]$ oc describe clusterrolebindings |less
+[student@workstation work]$ oc describe clusterrolebindings |less
+[student@workstation work]$ 
+[student@workstation work]$ for x in {11..30}
+> do
+> if [ -f htpasswd-app-file ]
+> then
+> htpasswd -B -b htpasswd-app-file user$x redhat
+> else
+> htpasswd -c -B -b htpasswd-app-file user$x redhat
+> fi
+> done
+Adding password for user user11
+Adding password for user user12
+Adding password for user user13
+Adding password for user user14
+Adding password for user user15
+Adding password for user user16
+Adding password for user user17
+Adding password for user user18
+Adding password for user user19
+Adding password for user user20
+Adding password for user user21
+Adding password for user user22
+Adding password for user user23
+Adding password for user user24
+Adding password for user user25
+Adding password for user user26
+Adding password for user user27
+Adding password for user user28
+Adding password for user user29
+Adding password for user user30
+[student@workstation work]$ ll
+total 52
+-rw-rw-r--. 1 student student  1360 Nov 13 23:46 htpasswd-app-file
+-rw-rw-r--. 1 student student   201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student   201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student   950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student  1398 Nov 13 23:26 oauth.yaml
+[student@workstation work]$ ls -lrth 
+total 52K
+-rw-r-----. 1 student student   23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student 8.3K Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student  12K Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student   79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student  201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-rw-r--. 1 student student  201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:26 oauth.yaml
+-rw-rw-r--. 1 student student  950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:46 htpasswd-app-file
+[student@workstation work]$ cat htpasswd-app-file 
+user11:$2y$05$ioV1w4pMlzfcb/jh6HrYX.CsctHOeetjhvA9Mgwu46hqiml7WEAzq
+user12:$2y$05$TLuDxhuOkw2zE4fa40S68uIydaAWCcpBer8Lss7rEjvVaPuSDjxpC
+user13:$2y$05$YMfqEwY2uuNgEvbdjqrtTuCSePDtcmne/9KfYerh9hEPSM1Ri5z6a
+user14:$2y$05$xxflKX1Yhe8ujtE9sxD21u0tU6kT9dgx07bXBk7WUloGKa.6leHNC
+user15:$2y$05$Qr9G6pW9PFcCygAMEzcp3.qqou9UHOchZxFC9YlQb3ZC8T.P15ht6
+user16:$2y$05$HuM7IMFAf/8QUR.iYdMBv.gP0GhMXFbVSbosN9TXSb3uHOvNJaWaq
+user17:$2y$05$iokpMk7Scy.VENIDMVjAYek850VEj/9/qeP6XGOxPTZBH5bR7cz.q
+user18:$2y$05$m5gly1p88ON9mBhNO9g7nuqExrkA9vdv2o4qdApNOSUKiAH.fAqgK
+user19:$2y$05$9YZ6PasQ7YR2hAnLqPMaLuprJYw.Adj3m2vNOsevyvJneYnAgFrJG
+user20:$2y$05$EasaZiSL7EDpmKsd94uoQerkUtHmaAwCQLeJntnWkhB7AJr5qfes2
+user21:$2y$05$hNOicXNXiLRDghZs7kibw.e7/wkf41s6MzUH2GdPbV2LWrISPHavK
+user22:$2y$05$zggvjh.4awMD.s0okbY2t.MkjVoa3Lf03ok8.MInEB9BXi13aCsbm
+user23:$2y$05$dcL.71PfHlCAeSBDcGNpf.Vfyk6fRr2pCRRYQgshnM.IpS0pHQMA6
+user24:$2y$05$MxRaQcp/TwnqbLUxsRXIYOL2pG8XOCjnPYbVgn0vzOuhVxoniaTh6
+user25:$2y$05$oWGNZYpaSk/D5ejJ4XtZcODjbdG8G3XUu0i.8RGF0J7Jx.6QZJLqO
+user26:$2y$05$/i/ePPHIgwvKBgqQo6l2aub8LxWLl2L830z5Cc9GvFHqQi2O1c8tq
+user27:$2y$05$z/ap9DjmXlzSo8t1WAUQyOcnebQEXK3X5SazmBPTFX17gwREJQltW
+user28:$2y$05$OI.GK4A.kkzEPCejxOGme.j4SrNd9EOje90QROsai0lcyigHxUo0i
+user29:$2y$05$IrsK21r0K2rD8IS1Om9lfOJzIm/pB5Idq//edy07O6fGHIJnGfv6i
+user30:$2y$05$H/A3hTXv1pBGglO9gtbVau84LAfAIAriYe7JBWBWQ4BYTKeG4HXve
+[student@workstation work]$ mv htpasswd-app-file htpasswd-app01-file 
+[student@workstation work]$ for x in {31..50}; do if [ -f htpasswd-app-02-file ]; then htpasswd -B -b htpasswd-app-02-file user$x redhat; else htpasswd -c -B -b htpasswd-app-02-file user$x redhat; fi; done
+Adding password for user user31
+Adding password for user user32
+Adding password for user user33
+Adding password for user user34
+Adding password for user user35
+Adding password for user user36
+Adding password for user user37
+Adding password for user user38
+Adding password for user user39
+Adding password for user user40
+Adding password for user user41
+Adding password for user user42
+Adding password for user user43
+Adding password for user user44
+Adding password for user user45
+Adding password for user user46
+Adding password for user user47
+Adding password for user user48
+Adding password for user user49
+Adding password for user user50
+[student@workstation work]$ ll
+total 56
+-rw-rw-r--. 1 student student  1360 Nov 13 23:46 htpasswd-app01-file
+-rw-rw-r--. 1 student student  1360 Nov 13 23:47 htpasswd-app-02-file
+-rw-rw-r--. 1 student student   201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student   201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student   950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student  1398 Nov 13 23:26 oauth.yaml
+[student@workstation work]$ ls -lrth 
+total 56K
+-rw-r-----. 1 student student   23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student 8.3K Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student  12K Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student   79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student  201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-rw-r--. 1 student student  201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:26 oauth.yaml
+-rw-rw-r--. 1 student student  950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:46 htpasswd-app01-file
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:47 htpasswd-app-02-file
+[student@workstation work]$ for x in {51..70}; do if [ -f htpasswd-app03-file ]; then htpasswd -B -b htpasswd-app03-file user$x redhat; else htpasswd -c -B -b htpasswd-app03-file user$x redhat; fi; done
+Adding password for user user51
+Adding password for user user52
+Adding password for user user53
+Adding password for user user54
+Adding password for user user55
+Adding password for user user56
+Adding password for user user57
+Adding password for user user58
+Adding password for user user59
+Adding password for user user60
+Adding password for user user61
+Adding password for user user62
+Adding password for user user63
+Adding password for user user64
+Adding password for user user65
+Adding password for user user66
+Adding password for user user67
+Adding password for user user68
+Adding password for user user69
+Adding password for user user70
+[student@workstation work]$ ll
+total 60
+-rw-rw-r--. 1 student student  1360 Nov 13 23:46 htpasswd-app01-file
+-rw-rw-r--. 1 student student  1360 Nov 13 23:47 htpasswd-app-02-file
+-rw-rw-r--. 1 student student  1360 Nov 13 23:48 htpasswd-app03-file
+-rw-rw-r--. 1 student student   201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student   201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-r-----. 1 student student    23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student  8474 Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student 12114 Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student    79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student   950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student  1398 Nov 13 23:26 oauth.yaml
+[student@workstation work]$ ls -lrth 
+total 60K
+-rw-r-----. 1 student student   23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student 8.3K Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student  12K Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student   79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student  201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-rw-r--. 1 student student  201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:26 oauth.yaml
+-rw-rw-r--. 1 student student  950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:46 htpasswd-app01-file
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:47 htpasswd-app-02-file
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:48 htpasswd-app03-file
+[student@workstation work]$ mv htpasswd-app-02-file htpasswd-app\02-file 
+[student@workstation work]$ ls -lrth 
+total 60K
+-rw-r-----. 1 student student   23 Nov 13 23:01 kubeadmin-password
+-rw-r-----. 1 student student 8.3K Nov 13 23:01 kubeconfig
+-rw-rw-r--. 1 student student  12K Nov 13 23:01 kubeconfig-orig
+-rw-rw-r--. 1 student student   79 Nov 13 23:03 mypass.txt
+-rw-rw-r--. 1 student student  201 Nov 13 23:12 htpasswd-file-sre-team
+-rw-rw-r--. 1 student student  201 Nov 13 23:13 htpasswd-file-devops-team
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:26 oauth.yaml
+-rw-rw-r--. 1 student student  950 Nov 13 23:30 oauth-bkp.yaml
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:46 htpasswd-app01-file
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:47 htpasswd-app02-file
+-rw-rw-r--. 1 student student 1.4K Nov 13 23:48 htpasswd-app03-file
+[student@workstation work]$ cat htpasswd-app01-file
+user11:$2y$05$ioV1w4pMlzfcb/jh6HrYX.CsctHOeetjhvA9Mgwu46hqiml7WEAzq
+user12:$2y$05$TLuDxhuOkw2zE4fa40S68uIydaAWCcpBer8Lss7rEjvVaPuSDjxpC
+user13:$2y$05$YMfqEwY2uuNgEvbdjqrtTuCSePDtcmne/9KfYerh9hEPSM1Ri5z6a
+user14:$2y$05$xxflKX1Yhe8ujtE9sxD21u0tU6kT9dgx07bXBk7WUloGKa.6leHNC
+user15:$2y$05$Qr9G6pW9PFcCygAMEzcp3.qqou9UHOchZxFC9YlQb3ZC8T.P15ht6
+user16:$2y$05$HuM7IMFAf/8QUR.iYdMBv.gP0GhMXFbVSbosN9TXSb3uHOvNJaWaq
+user17:$2y$05$iokpMk7Scy.VENIDMVjAYek850VEj/9/qeP6XGOxPTZBH5bR7cz.q
+user18:$2y$05$m5gly1p88ON9mBhNO9g7nuqExrkA9vdv2o4qdApNOSUKiAH.fAqgK
+user19:$2y$05$9YZ6PasQ7YR2hAnLqPMaLuprJYw.Adj3m2vNOsevyvJneYnAgFrJG
+user20:$2y$05$EasaZiSL7EDpmKsd94uoQerkUtHmaAwCQLeJntnWkhB7AJr5qfes2
+user21:$2y$05$hNOicXNXiLRDghZs7kibw.e7/wkf41s6MzUH2GdPbV2LWrISPHavK
+user22:$2y$05$zggvjh.4awMD.s0okbY2t.MkjVoa3Lf03ok8.MInEB9BXi13aCsbm
+user23:$2y$05$dcL.71PfHlCAeSBDcGNpf.Vfyk6fRr2pCRRYQgshnM.IpS0pHQMA6
+user24:$2y$05$MxRaQcp/TwnqbLUxsRXIYOL2pG8XOCjnPYbVgn0vzOuhVxoniaTh6
+user25:$2y$05$oWGNZYpaSk/D5ejJ4XtZcODjbdG8G3XUu0i.8RGF0J7Jx.6QZJLqO
+user26:$2y$05$/i/ePPHIgwvKBgqQo6l2aub8LxWLl2L830z5Cc9GvFHqQi2O1c8tq
+user27:$2y$05$z/ap9DjmXlzSo8t1WAUQyOcnebQEXK3X5SazmBPTFX17gwREJQltW
+user28:$2y$05$OI.GK4A.kkzEPCejxOGme.j4SrNd9EOje90QROsai0lcyigHxUo0i
+user29:$2y$05$IrsK21r0K2rD8IS1Om9lfOJzIm/pB5Idq//edy07O6fGHIJnGfv6i
+user30:$2y$05$H/A3hTXv1pBGglO9gtbVau84LAfAIAriYe7JBWBWQ4BYTKeG4HXve
+[student@workstation work]$ cat htpasswd-app02-file
+user31:$2y$05$06feYPGMDx9isopl5brkxOjZUDxxPjDDm5DWzu0YAme1TcibyC5aa
+user32:$2y$05$ro.97XEXyYr9Vs78SdsAjOGtpvUq6xod2LJ3BaCY1OaR9chi5MZ8S
+user33:$2y$05$wmlSnJuSYVv4AoP2tN266ubYBHhsLzUOnaE963xwaafTnzC.aE4nK
+user34:$2y$05$Gv.YqeBf9tvKSCOwTzL5D.eZKCDDk1.fDJi15JWvuiQdcWREoirqy
+user35:$2y$05$1ruzG53b/xp2uSGwr/IipeigcsLg6msTOJ2bWfvCvovyg3eMc2xXu
+user36:$2y$05$VFYqudp/9gLZnolONd/d/usnuNT.ajwb.urSlVNKNqve1Qd0.nM7u
+user37:$2y$05$eaA8xmCFMD4yL/KTaUqRheOXlluRvtiGy8mWMZ.W/8o8uZVMVtBzG
+user38:$2y$05$.PH5xTt5osvw6oCKnfMm8.OWcT99Nzba6RcWZH9MyDtI/G2bjRfcG
+user39:$2y$05$j0UV38EJzfx5SycKkEG48O56X8BUo5ZGoqCzU2xQLv3GPqizC4xVG
+user40:$2y$05$3rjQEhDPA5qoNIK1QDBZ6eo8P910LtQ.a9tvRYgSnHc.tDqA.d3DG
+user41:$2y$05$UsG3waW9ILI2.Z4sjm2.3uEzUv2p0WPygMnx4R5MrRI3LPJ50Sy/y
+user42:$2y$05$fpzNLzmjxnL.4iPT09b7duzvaZ5mAMkw8WtbC25Ro9yW5Xlyc2N66
+user43:$2y$05$1g16B2IbzzeLHiGQc/ee4OCrsCUYgz/RCtZ.f8XoR.f8.ZdD/rH8i
+user44:$2y$05$bCxd7kd6At44.rcjFYhuFOaq7m2jioVCcgj5o/7J/cmzLH/t3i5FO
+user45:$2y$05$z5mPccTRn3e5V.lnZTjcUe2TgfdXkA8ITDNTxbTTSO7YyN.5NKQty
+user46:$2y$05$EP5JDhYvnqSHN2y53xBkueZ20sSOFl/r.K76qjq.lCwHZTaxzkKLq
+user47:$2y$05$nb7eQq18tSUEUvVEhIjQruQEcB9arueMe3B7Pkfx51lZ584P/3dBe
+user48:$2y$05$PF7QMuZEJnpO0/IAZyoOkuW.AbsgSQnJkx0x3s1Frnu6geXCblV7u
+user49:$2y$05$EQzH/JmujWOyZLHWaoLBsOL7PODa9VB1f33rPMGIO9R2mo58prPK6
+user50:$2y$05$QM9/abOrDYRLyYdxbhMQzuniRG/zLJ8UuUiymJQNDs4AlGq0mUY/O
+[student@workstation work]$ cat htpasswd-app03-file
+user51:$2y$05$Sf8ktcN0r9/CoLrnmNRnzuW2FZx7bsw8I6CwiZDuAnefAzvAPNZQG
+user52:$2y$05$aBEbcj7ISy9wgrYbQ77YG.aqnNbr/taJg1BG1YAHDa7vjdibWqogG
+user53:$2y$05$Zx6D0eHw6pUPFMO26G6xxeiDIDdH5DiRLm4GNYCkwx5GG9jXpgGWu
+user54:$2y$05$96Kn.EYs.5cL8NHSFao/r.GVx9pKlEBLv/Ep7p7owJisKlrmt/N.i
+user55:$2y$05$B8Yl07CVJaAwBx6Mdmg6Oet5ZeAmwr9ppl.QOTkViqdwIpM68oDrO
+user56:$2y$05$Xe4Ryt3vEZZjIxG5v6ihOuIxvskl/nc5j4BL6IPdXPPKhg9UPXnnS
+user57:$2y$05$xbOfm4TslF.AMgBow3pzdOX8xxZFwvahGSMTeyAMrcRGJmDiDTV5i
+user58:$2y$05$i/OXidOqFotS1tAiaFbQ/OZVTIR9iHU5TNzvvKyCoflr12zUrVOzC
+user59:$2y$05$fD0nq/z4eCZr6hU3wY1dVenbQUH/UXbge3Q1KRLNjDaADb8UcHq5y
+user60:$2y$05$R.EKHSzZOl4Gosb4QUCjKuTOkAKRlE.ubdM1sF.rp5.u3WZMO6/Am
+user61:$2y$05$CxI4h71LiLgXTytYnZvzNuwcUR4eknrrQO00oCugxEwUUVTvyqxMW
+user62:$2y$05$YwzJIBBgexRyni9LIibxsuQ0hRls.ea9Pif27ngD0kCroI3x.k5XS
+user63:$2y$05$ztIIFXNJ6V7vnJRcWg7Iq.zzRE7y7wdCWYmM5wV64ahiAciqzm2LO
+user64:$2y$05$y0sMSsg/oHF3RxiBWAENVe19IUgaxPR5LFEyPRE71XxtnE2Uh7NX.
+user65:$2y$05$gHEOgGzgP5Onzh3TxR/eguKUJ3tJO4qh78Y5n7ALQrCecRRD6hB7S
+user66:$2y$05$y5RCLMGWWzZDfMwWKYMVLuZjSA308KfWxx53XgShvwQsPAID6PEtm
+user67:$2y$05$XF4347kQsokMiqTEa9/Qxe5pqEinUahg377YplWgIkXrtti5BYpvu
+user68:$2y$05$.rAXBa1fc3PpnMrhspTgQ.Z3q8PXYZ.obcw3xf1wBWaXVnT0hcXCC
+user69:$2y$05$jLUstXh1mfY.cpf62IGjM.lti5Ij/2yEdylyheNU/wdxO.irafSl2
+user70:$2y$05$qJ4UTUDyk1N2aqwyVcoN8.foCjkbEGiLJOH7Lsc.OAAQVxxbRGGLK
+[student@workstation work]$ 
+[student@workstation work]$ oc create secret generic htpasswd-app01-secret --from-file htpasswd=htpasswd-app01-file -n openshift-config 
+secret/htpasswd-app01-secret created
+[student@workstation work]$ oc create secret generic htpasswd-app02-secret --from-file htpasswd=htpasswd-app02-file -n openshift-config 
+secret/htpasswd-app02-secret created
+[student@workstation work]$ oc create secret generic htpasswd-app03-secret --from-file htpasswd=htpasswd-app03-file -n openshift-config 
+secret/htpasswd-app03-secret created
+[student@workstation work]$ oc get oauth/cluster -o yaml > oauth-update.yaml 
+[student@workstation work]$ vim oauth-update.yaml 
+[student@workstation work]$ oc replace -f oauth-update.yaml 
+oauth.config.openshift.io/cluster replaced
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-authtication 
+No resources found in openshift-authtication namespace.
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          26m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          26m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          26m
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          26m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          27m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          28m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          27m
+[student@workstation work]$ oc whoami 
+kube:admin
+[student@workstation work]$ oc new-project project-app01
+Now using project "project-app01" on server "https://api.ocp4.example.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
+
+[student@workstation work]$ oc new-project project-app02
+Now using project "project-app02" on server "https://api.ocp4.example.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
+
+[student@workstation work]$ oc new-project project-app03
+Now using project "project-app03" on server "https://api.ocp4.example.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
+
+[student@workstation work]$ oc projects | grep app
+    openshift-cluster-machine-approver
+    project-app01
+    project-app02
+  * project-app03
+Using project "project-app03" on server "https://api.ocp4.example.com:6443".
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          28m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          28m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          28m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          28m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          28m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          30m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          29m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          30m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          29m
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login failed (401 Unauthorized)
+Verify you have provided correct credentials.
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          30m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          29m
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-7dd7f97786-6n8sv   1/1     Running   0          29m
+oauth-openshift-7dd7f97786-kvthb   1/1     Running   0          30m
+oauth-openshift-7dd7f97786-ptfpz   1/1     Running   0          29m
+[student@workstation work]$ for x in `cat`
+> do
+> oc delete pod $x
+> done
+oauth-openshift-7dd7f97786-6n8sv 
+oauth-openshift-7dd7f97786-kvthb 
+oauth-openshift-7dd7f97786-ptfpz 
+Error from server (NotFound): pods "oauth-openshift-7dd7f97786-6n8sv" not found
+Error from server (NotFound): pods "oauth-openshift-7dd7f97786-kvthb" not found
+Error from server (NotFound): pods "oauth-openshift-7dd7f97786-ptfpz" not found
+[student@workstation work]$ for x in `cat`; do oc delete pod $x -n openshift-authentication; done
+oauth-openshift-7dd7f97786-6n8sv 
+oauth-openshift-7dd7f97786-kvthb 
+oauth-openshift-7dd7f97786-ptfpz 
+pod "oauth-openshift-7dd7f97786-6n8sv" deleted
+pod "oauth-openshift-7dd7f97786-kvthb" deleted
+Error from server (NotFound): pods "oauth-openshift-7dd7f97786-ptfpz" not found
+[student@workstation work]$ oc get pods -n openshift-authentication 
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-5c7566cb5b-7zh6r   1/1     Running   0          30s
+oauth-openshift-5c7566cb5b-c8qft   1/1     Running   0          63s
+oauth-openshift-5c7566cb5b-rw7f5   1/1     Running   0          92s
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ for x in {11..70}
+> do
+> oc login -u user$x -p redhat 
+> done
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[student@workstation work]$ oc whoami 
+user70
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 69 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc whoami 
+kube:admin
+[student@workstation work]$ oc get users
+NAME     UID                                    FULL NAME   IDENTITIES
+admin    835bde25-34d7-47a8-a9d5-0875a846ab23               htpasswd_provider:admin
+user1    f79bd0b5-7682-49d7-87ee-7e9e0049e2df               htpasswd_provider-sre:user1
+user11   ae41f55a-2442-41a1-a2d2-a225bef601ae               htpasswd_provider-app01:user11
+user12   5bec944f-950c-47c3-8101-4a8b2d0d256f               htpasswd_provider-app01:user12
+user13   aeba4bb2-6d01-4a2d-8842-d4f16dfedac3               htpasswd_provider-app01:user13
+user14   4a3bd83e-3c85-4a14-9b19-40c829b1c265               htpasswd_provider-app01:user14
+user15   020afd42-b156-4d49-baac-54764ab6166d               htpasswd_provider-app01:user15
+user16   cfc31821-bb95-4ee1-a4e9-3a1960d293c7               htpasswd_provider-app01:user16
+user17   4da1789a-ed11-4449-a230-02af32a77e67               htpasswd_provider-app01:user17
+user18   9b399fcc-08ee-442b-a06e-82ad9a1c9a9b               htpasswd_provider-app01:user18
+user19   42bd125e-3f29-4c67-afb1-7605b23dc91c               htpasswd_provider-app01:user19
+user2    81afe822-7573-4975-9ee5-7ea8d9f9abe7               htpasswd_provider-sre:user2
+user20   3c441604-3666-4b00-950f-b63e3d09ee71               htpasswd_provider-app01:user20
+user21   eeaa141d-cdc7-4c89-ab59-3c3f3e258aae               htpasswd_provider-app01:user21
+user22   8791688a-a6bc-497b-88cb-0fda97c350b1               htpasswd_provider-app01:user22
+user23   5f256a41-726c-4664-9c56-c64d8059aea2               htpasswd_provider-app01:user23
+user24   f7462a56-2091-4779-8176-491ad6d0ef5b               htpasswd_provider-app01:user24
+user25   797d6733-bd9d-4404-806b-2fdb3dde7cde               htpasswd_provider-app01:user25
+user26   85824e25-4c9c-4977-a621-eb4ab7d2436e               htpasswd_provider-app01:user26
+user27   8e67d33c-d2fb-4934-baeb-e6ebad20c409               htpasswd_provider-app01:user27
+user28   819eb427-aac4-49c7-8b89-8885cc984533               htpasswd_provider-app01:user28
+user29   07a1fa04-bca6-47b3-9cc6-a03a5dc83a1b               htpasswd_provider-app01:user29
+user3    93215b98-e026-4228-a72f-36c6bb1499d7               htpasswd_provider-sre:user3
+user30   dcde1fbb-1263-4c35-9620-7d61b0957b2e               htpasswd_provider-app01:user30
+user31   429c45a0-0a73-4f6e-aef5-85aff241110b               htpasswd_provider-app02:user31
+user32   7e3910ef-47ba-44dc-91e2-c5bee23aaf17               htpasswd_provider-app02:user32
+user33   c9e6a257-e30a-45e0-a7cd-460c6b89b82e               htpasswd_provider-app02:user33
+user34   306ff29d-641f-47da-adad-6ea4f08973ce               htpasswd_provider-app02:user34
+user35   28867df3-8cfd-4bc2-a231-c37357208303               htpasswd_provider-app02:user35
+user36   d255301d-3e2a-49be-b32d-74276d6f35a0               htpasswd_provider-app02:user36
+user37   a907eaee-ab39-4d6f-96ce-0bd936c55f4c               htpasswd_provider-app02:user37
+user38   09de3e14-fd51-434a-861c-4aa9b3ba9d41               htpasswd_provider-app02:user38
+user39   b18fb57f-74b5-4775-bf7b-f95d657593c9               htpasswd_provider-app02:user39
+user4    c805f6e5-8264-42fd-91fc-f4e6bbeae021               htpasswd_provider-devops:user4
+user40   b32e62a0-9465-443f-8510-6ca8905f8861               htpasswd_provider-app02:user40
+user41   3d027f75-fc45-4b44-b4f8-db7c32251249               htpasswd_provider-app02:user41
+user42   6c67a9b5-a6c0-46f0-8e45-96306558f5f7               htpasswd_provider-app02:user42
+user43   33b061a0-ac47-41d6-a905-3a8b2ad89856               htpasswd_provider-app02:user43
+user44   7d53843c-b64b-4bf5-be5c-681a052feb8c               htpasswd_provider-app02:user44
+user45   2f51ea53-0b36-4859-b429-e9ffc6972bcd               htpasswd_provider-app02:user45
+user46   d9577e3b-c1e6-45bf-995d-9b0ffc0525e7               htpasswd_provider-app02:user46
+user47   24a74570-5250-4b53-a252-0df53e755cda               htpasswd_provider-app02:user47
+user48   16b350a1-801e-4c68-ae52-e4e9b149099d               htpasswd_provider-app02:user48
+user49   a2e2a0e9-c11f-43b8-be41-a57f1f38b1bf               htpasswd_provider-app02:user49
+user5    758cfbfe-c553-4e7b-8742-125f906f1d9c               htpasswd_provider-devops:user5
+user50   f23fdbfc-eb95-45fd-97ad-4651bde141fa               htpasswd_provider-app02:user50
+user51   74225ff4-a064-494b-a6c1-78cc850639c2               htpasswd_provider-app03:user51
+user52   bb6b694c-e1ee-4c9b-a32f-b85649eb5070               htpasswd_provider-app03:user52
+user53   8335b5a7-7147-4122-b51d-f1759998044d               htpasswd_provider-app03:user53
+user54   2d0cc074-bf73-4ed5-9495-0d4f258d1cec               htpasswd_provider-app03:user54
+user55   6cac24cc-4ab1-4b91-9e6b-e09b391036d7               htpasswd_provider-app03:user55
+user56   eaf5e859-3f91-4d2a-b9a5-4601757dc9c7               htpasswd_provider-app03:user56
+user57   c5e8d18b-d734-4a9c-b048-83510c4f9f5d               htpasswd_provider-app03:user57
+user58   21d78ac0-b7b4-4045-8f34-144ef934f448               htpasswd_provider-app03:user58
+user59   a0a7e91a-a962-4ee6-8e50-ecf5f848106c               htpasswd_provider-app03:user59
+user6    beb6e7c8-f793-4161-aa5b-8cc3f46ad75b               htpasswd_provider-devops:user6
+user60   797229a9-55d5-4cb4-a877-cfa0e4ab7c64               htpasswd_provider-app03:user60
+user61   b2f32d4b-f3cc-41dd-9bbf-09b475dc1d5f               htpasswd_provider-app03:user61
+user62   09035beb-8672-430a-a3e7-c0a6384e3380               htpasswd_provider-app03:user62
+user63   b6e5850d-9ad5-4cf7-b231-ef24782138c8               htpasswd_provider-app03:user63
+user64   d10bb32f-eee4-4cc3-a6f0-3e91fde8c3fb               htpasswd_provider-app03:user64
+user65   1481ee13-5e41-40f8-b787-d6be9477d167               htpasswd_provider-app03:user65
+user66   50c3fe2a-fdde-4d31-8c5d-c99d2cc618ec               htpasswd_provider-app03:user66
+user67   471ea631-27a5-4f25-8308-5bc8160a0c5e               htpasswd_provider-app03:user67
+user68   778f2c46-a4b3-4bcc-a978-6e57accea14d               htpasswd_provider-app03:user68
+user69   e094b162-3f5a-45a8-844e-d3358fd0a972               htpasswd_provider-app03:user69
+user70   33c8dc26-4928-4ccb-a7e1-b507a8f6e744               htpasswd_provider-app03:user70
+[student@workstation work]$ oc get users | grep app03 
+[student@workstation work]$ oc get users | grep app03 
+user51   74225ff4-a064-494b-a6c1-78cc850639c2               htpasswd_provider-app03:user51
+user52   bb6b694c-e1ee-4c9b-a32f-b85649eb5070               htpasswd_provider-app03:user52
+user53   8335b5a7-7147-4122-b51d-f1759998044d               htpasswd_provider-app03:user53
+user54   2d0cc074-bf73-4ed5-9495-0d4f258d1cec               htpasswd_provider-app03:user54
+user55   6cac24cc-4ab1-4b91-9e6b-e09b391036d7               htpasswd_provider-app03:user55
+user56   eaf5e859-3f91-4d2a-b9a5-4601757dc9c7               htpasswd_provider-app03:user56
+user57   c5e8d18b-d734-4a9c-b048-83510c4f9f5d               htpasswd_provider-app03:user57
+user58   21d78ac0-b7b4-4045-8f34-144ef934f448               htpasswd_provider-app03:user58
+user59   a0a7e91a-a962-4ee6-8e50-ecf5f848106c               htpasswd_provider-app03:user59
+user60   797229a9-55d5-4cb4-a877-cfa0e4ab7c64               htpasswd_provider-app03:user60
+user61   b2f32d4b-f3cc-41dd-9bbf-09b475dc1d5f               htpasswd_provider-app03:user61
+user62   09035beb-8672-430a-a3e7-c0a6384e3380               htpasswd_provider-app03:user62
+user63   b6e5850d-9ad5-4cf7-b231-ef24782138c8               htpasswd_provider-app03:user63
+user64   d10bb32f-eee4-4cc3-a6f0-3e91fde8c3fb               htpasswd_provider-app03:user64
+user65   1481ee13-5e41-40f8-b787-d6be9477d167               htpasswd_provider-app03:user65
+user66   50c3fe2a-fdde-4d31-8c5d-c99d2cc618ec               htpasswd_provider-app03:user66
+user67   471ea631-27a5-4f25-8308-5bc8160a0c5e               htpasswd_provider-app03:user67
+user68   778f2c46-a4b3-4bcc-a978-6e57accea14d               htpasswd_provider-app03:user68
+user69   e094b162-3f5a-45a8-844e-d3358fd0a972               htpasswd_provider-app03:user69
+user70   33c8dc26-4928-4ccb-a7e1-b507a8f6e744               htpasswd_provider-app03:user70
+[student@workstation work]$ oc get users | grep app02 
+
+
+
+
+
+
+
+
+[student@workstation work]$ oc get users | grep app02 
+user31   429c45a0-0a73-4f6e-aef5-85aff241110b               htpasswd_provider-app02:user31
+user32   7e3910ef-47ba-44dc-91e2-c5bee23aaf17               htpasswd_provider-app02:user32
+user33   c9e6a257-e30a-45e0-a7cd-460c6b89b82e               htpasswd_provider-app02:user33
+user34   306ff29d-641f-47da-adad-6ea4f08973ce               htpasswd_provider-app02:user34
+user35   28867df3-8cfd-4bc2-a231-c37357208303               htpasswd_provider-app02:user35
+user36   d255301d-3e2a-49be-b32d-74276d6f35a0               htpasswd_provider-app02:user36
+user37   a907eaee-ab39-4d6f-96ce-0bd936c55f4c               htpasswd_provider-app02:user37
+user38   09de3e14-fd51-434a-861c-4aa9b3ba9d41               htpasswd_provider-app02:user38
+user39   b18fb57f-74b5-4775-bf7b-f95d657593c9               htpasswd_provider-app02:user39
+user40   b32e62a0-9465-443f-8510-6ca8905f8861               htpasswd_provider-app02:user40
+user41   3d027f75-fc45-4b44-b4f8-db7c32251249               htpasswd_provider-app02:user41
+user42   6c67a9b5-a6c0-46f0-8e45-96306558f5f7               htpasswd_provider-app02:user42
+user43   33b061a0-ac47-41d6-a905-3a8b2ad89856               htpasswd_provider-app02:user43
+user44   7d53843c-b64b-4bf5-be5c-681a052feb8c               htpasswd_provider-app02:user44
+user45   2f51ea53-0b36-4859-b429-e9ffc6972bcd               htpasswd_provider-app02:user45
+user46   d9577e3b-c1e6-45bf-995d-9b0ffc0525e7               htpasswd_provider-app02:user46
+user47   24a74570-5250-4b53-a252-0df53e755cda               htpasswd_provider-app02:user47
+user48   16b350a1-801e-4c68-ae52-e4e9b149099d               htpasswd_provider-app02:user48
+user49   a2e2a0e9-c11f-43b8-be41-a57f1f38b1bf               htpasswd_provider-app02:user49
+user50   f23fdbfc-eb95-45fd-97ad-4651bde141fa               htpasswd_provider-app02:user50
+[student@workstation work]$ oc get users | grep app01
+
+
+
+
+
+
+
+
+[student@workstation work]$ oc get users | grep app01
+user11   ae41f55a-2442-41a1-a2d2-a225bef601ae               htpasswd_provider-app01:user11
+user12   5bec944f-950c-47c3-8101-4a8b2d0d256f               htpasswd_provider-app01:user12
+user13   aeba4bb2-6d01-4a2d-8842-d4f16dfedac3               htpasswd_provider-app01:user13
+user14   4a3bd83e-3c85-4a14-9b19-40c829b1c265               htpasswd_provider-app01:user14
+user15   020afd42-b156-4d49-baac-54764ab6166d               htpasswd_provider-app01:user15
+user16   cfc31821-bb95-4ee1-a4e9-3a1960d293c7               htpasswd_provider-app01:user16
+user17   4da1789a-ed11-4449-a230-02af32a77e67               htpasswd_provider-app01:user17
+user18   9b399fcc-08ee-442b-a06e-82ad9a1c9a9b               htpasswd_provider-app01:user18
+user19   42bd125e-3f29-4c67-afb1-7605b23dc91c               htpasswd_provider-app01:user19
+user20   3c441604-3666-4b00-950f-b63e3d09ee71               htpasswd_provider-app01:user20
+user21   eeaa141d-cdc7-4c89-ab59-3c3f3e258aae               htpasswd_provider-app01:user21
+user22   8791688a-a6bc-497b-88cb-0fda97c350b1               htpasswd_provider-app01:user22
+user23   5f256a41-726c-4664-9c56-c64d8059aea2               htpasswd_provider-app01:user23
+user24   f7462a56-2091-4779-8176-491ad6d0ef5b               htpasswd_provider-app01:user24
+user25   797d6733-bd9d-4404-806b-2fdb3dde7cde               htpasswd_provider-app01:user25
+user26   85824e25-4c9c-4977-a621-eb4ab7d2436e               htpasswd_provider-app01:user26
+user27   8e67d33c-d2fb-4934-baeb-e6ebad20c409               htpasswd_provider-app01:user27
+user28   819eb427-aac4-49c7-8b89-8885cc984533               htpasswd_provider-app01:user28
+user29   07a1fa04-bca6-47b3-9cc6-a03a5dc83a1b               htpasswd_provider-app01:user29
+user30   dcde1fbb-1263-4c35-9620-7d61b0957b2e               htpasswd_provider-app01:user30
+[student@workstation work]$ oc get users | grep sre
+
+
+
+
+
+
+
+
+[student@workstation work]$ oc get users | grep sre
+user1    f79bd0b5-7682-49d7-87ee-7e9e0049e2df               htpasswd_provider-sre:user1
+user2    81afe822-7573-4975-9ee5-7ea8d9f9abe7               htpasswd_provider-sre:user2
+user3    93215b98-e026-4228-a72f-36c6bb1499d7               htpasswd_provider-sre:user3
+[student@workstation work]$ 
+[student@workstation work]$ oc get users | grep devops
+user4    c805f6e5-8264-42fd-91fc-f4e6bbeae021               htpasswd_provider-devops:user4
+user5    758cfbfe-c553-4e7b-8742-125f906f1d9c               htpasswd_provider-devops:user5
+user6    beb6e7c8-f793-4161-aa5b-8cc3f46ad75b               htpasswd_provider-devops:user6
+[student@workstation work]$ oc projects | grep app 
+    openshift-cluster-machine-approver
+    project-app01
+    project-app02
+    project-app03
+[student@workstation work]$ oc adm policy add-cluster-role-to-user user11 -n project-app01
+error: you must specify at least one user or service account
+[student@workstation work]$ oc adm policy add-cluster-role-to-user user31 -n project-app02
+error: you must specify at least one user or service account
+[student@workstation work]$ oc adm policy add-cluster-role-to-user admin user11 -n project-app01
+clusterrole.rbac.authorization.k8s.io/admin added: "user11"
+[student@workstation work]$ oc adm policy add-cluster-role-to-user admin user31 -n project-app02
+clusterrole.rbac.authorization.k8s.io/admin added: "user31"
+[student@workstation work]$ oc adm policy add-cluster-role-to-user admin user51 -n project-app03
+clusterrole.rbac.authorization.k8s.io/admin added: "user51"
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login successful.
+
+You have access to 69 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[student@workstation work]$ oc project project-app01 
+Now using project "project-app01" on server "https://api.ocp4.example.com:6443".
+[student@workstation work]$ oc project -q 
+project-app01
+[student@workstation work]$ oc policy add-role-to-user admin user12 -n project-app01
+clusterrole.rbac.authorization.k8s.io/admin added: "user12"
+[student@workstation work]$ oc policy add-role-to-user edit user13 -n project-app01 
+clusterrole.rbac.authorization.k8s.io/edit added: "user13"
+[student@workstation work]$ for x in {14..24}
+> do
+> oc policy add-role-to-user edit user$x -n project-app01
+> done
+clusterrole.rbac.authorization.k8s.io/edit added: "user14"
+clusterrole.rbac.authorization.k8s.io/edit added: "user15"
+clusterrole.rbac.authorization.k8s.io/edit added: "user16"
+clusterrole.rbac.authorization.k8s.io/edit added: "user17"
+clusterrole.rbac.authorization.k8s.io/edit added: "user18"
+clusterrole.rbac.authorization.k8s.io/edit added: "user19"
+clusterrole.rbac.authorization.k8s.io/edit added: "user20"
+clusterrole.rbac.authorization.k8s.io/edit added: "user21"
+clusterrole.rbac.authorization.k8s.io/edit added: "user22"
+clusterrole.rbac.authorization.k8s.io/edit added: "user23"
+clusterrole.rbac.authorization.k8s.io/edit added: "user24"
+[student@workstation work]$ for x in {25..30}; do oc policy add-role-to-user view user$x -n project-app01; done
+clusterrole.rbac.authorization.k8s.io/view added: "user25"
+clusterrole.rbac.authorization.k8s.io/view added: "user26"
+clusterrole.rbac.authorization.k8s.io/view added: "user27"
+clusterrole.rbac.authorization.k8s.io/view added: "user28"
+clusterrole.rbac.authorization.k8s.io/view added: "user29"
+clusterrole.rbac.authorization.k8s.io/view added: "user30"
+[student@workstation work]$ oc login -u user30 -p redhat 
+Login successful.
+
+You have one project on this server: "project-app01"
+
+Using project "project-app01".
+[student@workstation work]$ oc whoanmi 
+error: unknown command "whoanmi" for "oc"
+
+Did you mean this?
+	whoami
+[student@workstation work]$ oc whoami 
+user30
+[student@workstation work]$ oc new-app --name app01 httpd:2.4 
+--> Found image 7b8d40f (16 months old) in image stream "openshift/httpd" under tag "2.4" for "httpd:2.4"
+
+    Apache httpd 2.4 
+    ---------------- 
+    Apache httpd 2.4 available as container, is a powerful, efficient, and extensible web server. Apache supports a variety of features, many implemented as compiled modules which extend the core functionality. These can range from server-side programming language support to authentication schemes. Virtual hosting allows one Apache installation to serve many different Web sites.
+
+    Tags: builder, httpd, httpd24
+
+
+--> Creating resources ...
+    error: deployments.apps is forbidden: User "user30" cannot create resource "deployments" in API group "apps" in the namespace "project-app01"
+    error: services is forbidden: User "user30" cannot create resource "services" in API group "" in the namespace "project-app01"
+--> Failed
+[student@workstation work]$ oc get pods
+No resources found in project-app01 namespace.
+[student@workstation work]$ oc describe rolebindings.rbac.authorization.k8s.io |less
+[student@workstation work]$ oc whoami 
+user30
+[student@workstation work]$ oc login -u user11 -p redhat 
+Login successful.
+
+You have access to 69 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "project-app01".
+[student@workstation work]$ oc whoami 
+user11
+[student@workstation work]$ oc describe rolebindings.rbac.authorization.k8s.io |less
+[student@workstation work]$ oc project -q 
+project-app01
+[student@workstation work]$ #oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+[student@workstation work]$ oc login -u kubeadmin -p ${_kube_pass} ${_api_url}
+Login successful.
+
+You have access to 69 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "project-app01".
+[student@workstation work]$ oc whoami 
+kube:admin
+[student@workstation work]$ oc projects | grep project 
+You have access to the following projects and can switch between them with ' project <projectname>':
+  * project-app01
+    project-app02
+    project-app03
+Using project "project-app01" on server "https://api.ocp4.example.com:6443".
+[student@workstation work]$ oc project project-app02
+Now using project "project-app02" on server "https://api.ocp4.example.com:6443".
+[student@workstation work]$ oc project -q
+project-app02
+[student@workstation work]$ oc describe rolebindings.rbac.authorization.k8s.io |less
+[student@workstation work]$ oc project -q
+project-app02
+[student@workstation work]$ oc project project-app01
+Now using project "project-app01" on server "https://api.ocp4.example.com:6443".
+[student@workstation work]$ oc project -q
+project-app01
+[student@workstation work]$ oc describe rolebindings.rbac.authorization.k8s.io |less
+[student@workstation work]$ oc login -u user21 -p redhat 
+Login successful.
+
+You have one project on this server: "project-app01"
+
+Using project "project-app01".
+[student@workstation work]$ oc whoami 
+user21
+[student@workstation work]$ oc new-app --name app01-using-user21  httpd:2.4 
+--> Found image 7b8d40f (16 months old) in image stream "openshift/httpd" under tag "2.4" for "httpd:2.4"
+
+    Apache httpd 2.4 
+    ---------------- 
+    Apache httpd 2.4 available as container, is a powerful, efficient, and extensible web server. Apache supports a variety of features, many implemented as compiled modules which extend the core functionality. These can range from server-side programming language support to authentication schemes. Virtual hosting allows one Apache installation to serve many different Web sites.
+
+    Tags: builder, httpd, httpd24
+
+
+--> Creating resources ...
+    deployment.apps "app01-using-user21" created
+    service "app01-using-user21" created
+--> Success
+    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
+     'oc expose service/app01-using-user21' 
+    Run 'oc status' to view your app.
+[student@workstation work]$ oc get pods
+NAME                                 READY   STATUS              RESTARTS   AGE
+app01-using-user21-5696c564d-gkzz7   0/1     ContainerCreating   0          2s
+[student@workstation work]$ oc get pods -w
+NAME                                 READY   STATUS              RESTARTS   AGE
+app01-using-user21-5696c564d-gkzz7   0/1     ContainerCreating   0          6s
+app01-using-user21-5696c564d-gkzz7   1/1     Running             0          14s
+^C[student@workstation work]$ 
+
